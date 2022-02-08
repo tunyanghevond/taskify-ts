@@ -1,13 +1,36 @@
-import React from "react";
-import logo from "./logo.svg";
+import React, { useState } from "react";
 import "./App.css";
+import InputFilde from "./components/InputFilde";
+import { List } from "./model";
 
-function App() {
+const App: React.FC = () => {
+  const [text, setText] = useState<string>("");
+  const [emptyText, setEmptyText] = useState<boolean>(false);
+  const [todoList, setTodoList] = useState<List[]>([]);
+
+  const addTodoList = (e: React.FormEvent<EventTarget>) => {
+    e.preventDefault();
+    if (!text) {
+      setEmptyText(!emptyText);
+    } else {
+      setTodoList([...todoList, { id: Date.now(), text: text, isDone: false }]);
+      setText("");
+    }
+  };
+  console.log(todoList);
   return (
-    <div className="App">
-      <h1>Hi Hther!</h1>
-    </div>
+    <header className="header">
+      <div>
+        <h1 className="header-title">Taskify</h1>
+      </div>
+      <InputFilde
+        text={text}
+        setText={setText}
+        addTodoList={addTodoList}
+        emptyText={emptyText}
+      />
+    </header>
   );
-}
+};
 
 export default App;
