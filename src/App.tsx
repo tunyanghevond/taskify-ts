@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./App.css";
 import InputFilde from "./components/InputFilde";
+import TodoList from "./components/TodoList";
+
 import { List } from "./model";
 
 const App: React.FC = () => {
@@ -20,8 +22,8 @@ const App: React.FC = () => {
   console.log(todoList);
   return (
     <header className="header">
-      <div>
-        <h1 className="header-title">Taskify</h1>
+      <div className="header-title">
+        <h1>Taskify</h1>
       </div>
       <InputFilde
         text={text}
@@ -29,6 +31,7 @@ const App: React.FC = () => {
         addTodoList={addTodoList}
         emptyText={emptyText}
       />
+      <TodoList todoList={todoList} setTodoList={setTodoList} />
     </header>
   );
 };

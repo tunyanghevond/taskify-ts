@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./styles.css";
 
 interface Props {
@@ -14,9 +14,17 @@ const InputFilde: React.FC<Props> = ({
   addTodoList,
   emptyText,
 }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   return (
-    <form className="form" onSubmit={addTodoList}>
+    <form
+      className="form"
+      onSubmit={(e) => {
+        addTodoList(e);
+        inputRef.current?.blur();
+      }}
+    >
       <input
+        ref={inputRef}
         type="input"
         value={text}
         onChange={(e) => setText(e.target.value)}
